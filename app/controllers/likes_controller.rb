@@ -30,7 +30,7 @@ class LikesController < ApplicationController
   end
 
   def set_like
-    @dog.likes.where(user_id: current_user.id).first
+    @like = @dog.likes.where(user_id: current_user.id).first
   end
 
   def liked?
