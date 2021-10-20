@@ -4,7 +4,7 @@ class DogsController < ApplicationController
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = Dog.all.page(params[:page]).per(5)
+    @dogs = policy_scope(Dog).page(params[:page]).per(5)
   end
 
   # GET /dogs/1
@@ -15,6 +15,7 @@ class DogsController < ApplicationController
   # GET /dogs/new
   def new
     @dog = Dog.new
+    authorize @dog
   end
 
   # GET /dogs/1/edit
@@ -26,6 +27,7 @@ class DogsController < ApplicationController
   def create
     @dog = Dog.new(dog_params)
     @dog.owner = current_user
+    authorize @dog
 
     respond_to do |format|
       if @dog.save
@@ -71,6 +73,7 @@ class DogsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_dog
     @dog = Dog.find(params[:id])
+    authorize @dog
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
