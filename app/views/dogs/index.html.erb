@@ -1,4 +1,4 @@
-<h5><%= link_to 'Most recently liked doggos', root_path(recently_liked: true)  %></h5>
+<h5><%= link_to 'Trending doggos', root_path(recently_liked: true)  %></h5>
 <%= paginate @dogs %>
 
 <%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
