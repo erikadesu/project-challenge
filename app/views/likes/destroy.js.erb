@@ -1,1 +1,3 @@
-$("#dog_<%= @dog.id %>_like").html("<%=j render partial: "dogs/like", locals: {dog: @dog} %>");
+var dogLike = ".dogLike<%=@dog.id%>";
+var element = document.querySelector(dogLike);
+element.innerHTML = "<%=j render partial: "dogs/like", locals: {dog: @dog} %>";

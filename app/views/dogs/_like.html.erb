@@ -1,8 +1,10 @@
-<% unless current_user.owner?(dog) %>
-  <% if user_signed_in? && current_user.likes?(dog) %>
-    <%= link_to 'Unlike', dog_like_path(dog), method: :delete, remote: true  %>
-  <% else %>
-    <%= link_to 'Like', dog_like_path(dog), method: :post, remote: true  %>
+<div class= <%="dogLike#{dog.id}" %> >
+  <% unless current_user.owner?(dog) %>
+    <% if user_signed_in? && current_user.likes?(dog) %>
+      <%= link_to 'Unlike', dog_like_path(dog), method: :delete, remote: true  %>
+    <% else %>
+      <%= link_to 'Like', dog_like_path(dog), method: :post, remote: true  %>
+    <% end %>
   <% end %>
-<% end %>
-<p><%= dog.likes_count %> <%= dog.likes_count == 1 ? 'Like' : 'Likes' %></p>
+  <p><%= dog.likes_count %> <%= dog.likes_count == 1 ? 'Like' : 'Likes' %></p>
+</div>
