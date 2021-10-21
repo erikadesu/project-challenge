@@ -4,7 +4,16 @@ class DogsController < ApplicationController
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = policy_scope(Dog).page(params[:page]).per(5)
+    if params[:recently_liked]
+      @dogs = policy_scope(Dog)
+        .joins(:likes)
+        .where(likes: {created_at: one_hour_range})
+        .group(:dog_id)
+        .order(Arel.sql("count(likes.id) desc"))
+        .page(params[:page])
+    else
+      @dogs = policy_scope(Dog).page(params[:page])
+    end
   end
 
   # GET /dogs/1
@@ -79,5 +88,9 @@ class DogsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def dog_params
     params.require(:dog).permit(:name, :description, images: [])
+  end
+
+  def one_hour_range
+    (Time.current - 1.hour)..(Time.current)
   end
 end
