@@ -5,3 +5,5 @@
     <%= image_tag url_for(dog.images.first), class: "dog-photo", alt: "Photo of #{dog.name}" %>
   </article>
 </a>
+
+<%= render partial: "advertisements/ad" if dog_iteration.index % 2 == 1 %>
